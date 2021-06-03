@@ -2,9 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const { dbConnetion } = require('./db/dbConfig');
 const morgan = require('morgan');
+const csv = require('csvtojson');
 require('dotenv').config();
 
 const app = express();
+
+function insertFacturas() {
+    const converter = csv()
+        .fromFile('./consumo-2019-01.csv')
+            .then((json) => {
+                var bills = json;
+                const  Bill  = require('./models/bills')
+                Bill.insertMany(bills)
+        });
+        console.log('Data.csv imported to the database')  
+}
+insertFacturas();
 
 app.use(cors());
 
