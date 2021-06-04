@@ -19,7 +19,7 @@ function insertFacturas() {
 }
 insertFacturas();
 
-app.use(cors());
+app.use(cors({ origin: process.env.UI_URL }));
 
 app.use(morgan('dev'));
 app.use(express.json());
